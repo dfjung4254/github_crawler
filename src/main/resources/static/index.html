@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HELLO GITHUB CRAWLER</title>
+</head>
+<body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        async function getCrawler() {
+
+            document.getElementById('onSuccess').style.display = 'none';
+            document.getElementById('onFailure').style.display = 'none';
+            document.getElementById('onLoad').style.display = 'initial';
+
+            const result = await axios.get('/crawler', {
+                params: {
+                    githubId: document.getElementById('githubId').value
+                }
+            });
+
+            console.log(result);
+            console.log(result.data.result);
+
+            if(result.data.result){
+                document.getElementById('onSuccess').style.display = 'initial';
+                document.getElementById('onFailure').style.display = 'none';
+                document.getElementById('onLoad').style.display = 'none';
+            }else{
+                document.getElementById('onSuccess').style.display = 'none';
+                document.getElementById('onFailure').style.display = 'initial';
+                document.getElementById('onLoad').style.display = 'none';
+            }
+
+        }
+
+    </script>
+    <h1>Hello this is github Crawler!!</h1>
+    <label>your github URL : </label>
+    <input type="text" id="githubId">
+    <button onclick="getCrawler();">save github!</button>
+    <h1 id="onLoad" style="display: none">LOADING...</h1>
+    <h1 id="onSuccess" style="display: none; color: deepskyblue">SUCCESS CRAWLING AND SAVE!!</h1>
+    <h1 id="onFailure" style="display: none; color: darkred">FAIL.. CHECK YOUR GITHUB ID..</h1>
+
+</body>
+</html>
